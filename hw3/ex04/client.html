@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+ 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocker Client</title>
+<script>
+    const socket = new WebSocket('ws://localhost:8000');
+    socket.addEventListener('open', function (event) {
+      console.log('OPEN EVENT');
+      // 初始化 websocket 連線
+      socket.send('Hi, I am Client');
+    });
+    socket.addEventListener('message', function (event) {
+    // 準備接受來自 server 端的訊息
+      console.log('FromServer');
+      console.log(event.data);
+    });
+cnt = 1;
+const contactServer = () => {
+// 按鍵後會送出到 server的訊息
+    console.log('Send Button Pressed!'+cnt)
+    msg = "MyCounter " + cnt;
+    socket.send(msg);
+    cnt+=1;
+}
+</script>
+</head>
+<body>
+    <button onclick="contactServer()">Click Here</button>
+</body>
+
+</html>
